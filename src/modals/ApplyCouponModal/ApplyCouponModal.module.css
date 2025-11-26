@@ -1,0 +1,156 @@
+.modalContainer {
+  background-color: #ffffff;
+  width: 100%;
+  max-width: 450px;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0;
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #9ca3af;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.closeBtn:hover {
+  color: #1f2937;
+}
+
+/* Input Section */
+.inputSection {
+  display: flex;
+  gap: 12px;
+}
+
+.couponInput {
+  flex: 1;
+  padding: 12px 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 14px;
+  outline: none;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #374151;
+}
+
+.couponInput::placeholder {
+  color: #9ca3af;
+  text-transform: none;
+  font-weight: 400;
+}
+
+.couponInput:focus {
+  border-color: #1f4d9d;
+}
+
+.applyBtn {
+  background-color: #e0e7ff; /* Light Indigo */
+  color: #4338ca; /* Indigo 700 */
+  border: none;
+  padding: 0 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.applyBtn:hover {
+  background-color: #c7d2fe;
+}
+
+/* Available Coupons List */
+.couponList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.listTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* Individual Coupon Card */
+.couponCard {
+  border: 1px dashed #d1d5db;
+  border-radius: 12px;
+  padding: 16px;
+  background-color: #f9fafb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.2s;
+}
+
+.couponCard:hover {
+  background-color: #f3f4f6;
+  border-color: #9ca3af;
+}
+
+.couponInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.code {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.desc {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.discountAmount {
+  font-size: 12px;
+  font-weight: 600;
+  color: #059669; /* Green */
+  margin-top: 2px;
+}
+
+.listApplyBtn {
+  color: #ef4444; /* Reddish/Orange apply text like image */
+  font-weight: 700;
+  font-size: 14px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px 12px;
+}
+
+.listApplyBtn:hover {
+  text-decoration: underline;
+}

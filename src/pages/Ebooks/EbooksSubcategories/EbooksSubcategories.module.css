@@ -1,0 +1,103 @@
+/* src/pages/Ebooks/EbooksSubcategories/EbooksSubcategories.module.css */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap");
+
+.pageWrapper {
+  width: 100%;
+  min-height: 100vh;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(90deg, #fff6e8 0%, #ffffff 50%, #fff6e8 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* This is the white content box that sits below the header */
+.subSection {
+  box-sizing: border-box;
+  margin: 0 auto;
+  width: 100%;
+  /* max-width: 1200px; */
+  padding: 2rem;
+  /* This pulls the content up over the bottom of the Header component */
+  /* transform: translateY(-40px); */
+  /* background: #fff; */
+  /* border-radius: 8px; */
+  /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); */
+  /* padding: 24px; */
+}
+
+.headerRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 8px;
+}
+
+.heading {
+  font-size: 18px;
+  color: var(--Primary_Color, #1f4d9d);
+  font-weight: 600;
+  margin: 0;
+}
+
+.headingUnderline {
+  width: 72px;
+  height: 4px;
+  background: var(--Primary_Color, #1f4d9d);
+  border-radius: 2px;
+}
+
+.searchRow {
+  margin: 12px 0 22px;
+  display: flex;
+  align-items: center;
+  max-width: 400px; /* Constrains search bar width */
+}
+
+.grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* ALWAYS 4 columns */
+  gap: 20px;
+  justify-items: start; /* Makes the left alignment consistent */
+  align-items: start;
+  box-sizing: border-box;
+}
+
+/* We don't need .card styles here, as CategoryCard brings its own */
+
+.noResults {
+  font-size: 1rem;
+  color: #555;
+  padding: 24px;
+  text-align: center;
+  grid-column: 1 / -1; /* Make it span the full grid */
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 900px) {
+  .subSection {
+    width: 94%;
+    padding: 18px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .subSection {
+    width: 96%;
+    padding: 12px;
+    transform: translateY(-20px); /* Less overlap on mobile */
+  }
+
+  /* Grid stacks to single column */
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}

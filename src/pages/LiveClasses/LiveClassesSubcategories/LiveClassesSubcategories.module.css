@@ -1,0 +1,90 @@
+/* src/pages/LiveClasses/LiveClassesSubcategories/LiveClassesSubcategories.module.css */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap");
+
+/* All these styles are from your CurrentAffairs file */
+.pageWrapper {
+  width: 100%;
+  min-height: 100vh;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(90deg, #fff6e8 0%, #ffffff 50%, #fff6e8 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.subSection {
+  width: 86%;
+  max-width: 1200px;
+  padding: 22px 0 80px;
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+
+.headerRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 8px;
+}
+
+.heading {
+  font-size: 18px;
+  color: var(--Primary_Color, #1f4d9d);
+  font-weight: 600;
+  margin: 0;
+}
+
+.headingUnderline {
+  width: 72px;
+  height: 4px;
+  background: var(--Primary_Color, #1f4d9d);
+  border-radius: 2px;
+}
+
+.searchRow {
+  margin: 12px 0 22px;
+  display: flex;
+  align-items: center;
+}
+
+/* THIS IS THE MODIFIED SECTION
+  The grid is changed to support the larger CategoryCard.
+  The .card, .cardImage, and .cardTitle styles are removed
+  because CategoryCard has its own styles.
+*/
+.grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* ALWAYS 4 columns */
+  gap: 20px;
+  justify-items: start; /* Makes the left alignment consistent */
+  align-items: start;
+  box-sizing: border-box;
+}
+
+/* RESPONSIVE (Also modified to support the new grid) */
+@media (max-width: 900px) {
+  .subSection {
+    width: 94%;
+    padding: 18px 0 60px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+  }
+}
+
+@media (max-width: 420px) {
+  .subSection {
+    width: 96%;
+    padding: 14px 8px 60px;
+  }
+
+  .grid {
+    /* Stack to a single column on small phones */
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}

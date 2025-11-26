@@ -1,0 +1,117 @@
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  align-items: flex-start;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 9999;
+  min-width: 300px;
+  max-width: 400px;
+  border-left: 6px solid transparent;
+  overflow: hidden;
+  animation: slideIn 0.3s ease-out forwards;
+}
+
+.toast.success {
+  border-left-color: #4caf50;
+}
+
+.toast.error {
+  border-left-color: #f44336;
+}
+
+.iconContainer {
+  margin-right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+}
+
+.success .icon {
+  color: #4caf50;
+}
+
+.error .icon {
+  color: #f44336;
+}
+
+.content {
+  flex: 1;
+}
+
+.title {
+  margin: 0 0 4px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.message {
+  margin: 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #999;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0 0 0 10px;
+}
+
+.closeBtn:hover {
+  color: #333;
+}
+
+/* Progress Bar Animation */
+.progressBarContainer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: #f0f0f0;
+}
+
+.progressBar {
+  height: 100%;
+  background: #4caf50; /* Default success color */
+  width: 100%;
+  animation: progress linear forwards;
+}
+
+.error .progressBar {
+  background: #f44336;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes progress {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
