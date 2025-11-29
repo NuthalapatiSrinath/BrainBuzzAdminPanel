@@ -1,0 +1,157 @@
+.container {
+  position: relative;
+  font-family: "Poppins", sans-serif;
+  min-width: 180px;
+}
+
+/* Base Trigger Styles */
+.trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 48px; /* Match height */
+  padding: 0 12px;
+  font-size: 15px;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.iconWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.dateText {
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.chev {
+  font-size: 12px;
+  transition: transform 0.3s ease;
+  margin-left: 10px;
+}
+
+.rotate {
+  transform: rotate(180deg);
+}
+
+/* --- VARIANTS --- */
+
+/* Primary Variant (Standard Input Look) */
+.primary {
+  background-color: #fff;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+.primary:hover {
+  border-color: #d1d5db;
+  background-color: #f9fafb;
+}
+.primary .iconWrap {
+  background-color: #f3f4f6;
+  color: #4b5563;
+}
+.primary .dateText {
+  color: #374151;
+}
+.primary .chev {
+  color: #9ca3af;
+}
+
+/* --- RICH VARIANT (Matches Image 49d578.png) --- */
+.rich {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0; /* Minimal padding like text */
+  min-height: auto;
+  justify-content: flex-end; /* Align content to right usually */
+}
+
+.rich .iconWrap {
+  /* Orange/Amber Box */
+  background-color: #fffbeb; /* Amber-50 */
+  color: #d97706; /* Amber-600 */
+}
+
+.rich .dateText {
+  /* Matching the Amber color for text too based on "Select Content" style, 
+     or keeping it dark grey if just the icon is colored. 
+     Let's match the previous rich dropdown: Colored Text. */
+  color: #d97706;
+  font-weight: 600;
+}
+
+.rich .chev {
+  color: #d97706; /* Amber-600 */
+  background-color: #fffbeb;
+  border-radius: 50%;
+  padding: 4px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rich:hover .dateText {
+  color: #b45309; /* Darker Amber */
+}
+
+/* --- MENU --- */
+.menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 100%;
+  min-width: 200px;
+  background: #fff;
+  border: 1px solid #f3f4f6;
+  border-radius: 8px;
+  padding: 6px;
+  list-style: none;
+  z-index: 100;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1),
+    0 8px 10px -6px rgba(0, 0, 0, 0.01);
+  animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.item {
+  padding: 10px 12px;
+  font-size: 14px;
+  color: #4b5563;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.15s;
+}
+
+.item:hover {
+  background-color: #f3f4f6;
+  color: #111;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

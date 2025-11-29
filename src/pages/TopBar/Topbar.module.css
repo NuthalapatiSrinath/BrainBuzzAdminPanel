@@ -21,7 +21,7 @@
 
 /* container layout */
 .container {
-  max-width: 1300px;
+  /* max-width: 140px; */
   margin: 0 auto;
   display: flex;
   gap: 12px;
@@ -31,7 +31,7 @@
 
 /* left logo */
 .left {
-  flex: 0 0 72px;
+  flex: 0 0 2px;
 }
 
 .logoAndHam {
@@ -118,7 +118,7 @@
 }
 
 .badge {
-  height: 50px;
+  height: 48px;
   object-fit: contain;
   padding: 2px 6px;
 } /* --- ADD THIS TO Topbar.module.css --- */

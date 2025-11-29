@@ -11,6 +11,7 @@ import styles from "./Topbar.module.css";
 
 /* (TOP_NAV, LOGIN_BTN, BOTTOM_NAV, normalizeHref functions are all unchanged) */
 const TOP_NAV = [
+  { key: "adminhome", label: "Admin Home", href: "/admin/content" },
   { key: "home", label: "Home", href: "/" },
   {
     key: "follow",

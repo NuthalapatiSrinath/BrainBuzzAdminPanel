@@ -46,8 +46,7 @@ import QuizCorrectAnswersPage from "../pages/DailyQuizzes/QuizCorrectAnswersPage
 import EbooksPage from "../pages/Ebooks/EbooksPage/EbooksPage";
 import EbooksSubcategories from "../pages/Ebooks/EbooksSubcategories/EbooksSubcategories";
 import PublicationsPage from "../pages/Ebooks/PublicationsPage/PublicationsPage";
-import BookDetailPage from "../pages/Ebooks/BookDetailPage/BookDetailPage"; // Needs tab parameter
-// New Purchased Ebooks Page
+import BookDetailPage from "../pages/Ebooks/BookDetailPage/BookDetailPage";
 
 // ========================
 // PREVIOUS PAPERS FLOW
@@ -93,48 +92,52 @@ import MyEbooksPage from "../pages/TopBar/TopbarPanelPages/MyEbooksPage/MyEbooks
 import ResetPasswordModal from "../modals/ResetPasswordModal/ResetPasswordModal";
 import MyOrdersPage from "../pages/MyOrdersPage/MyOrdersPage";
 
+// --- ADMIN IMPORTS ---
+import AdminMainPage from "../pages/Admin/AdminMainPage/AdminMainPage";
+import AdminOnlineCoursesPage from "../pages/Admin/AdminOnlineCoursesPage/AdminOnlineCoursesPage";
+
+// --- Placeholder Component ---
+const PlaceholderPage = ({ title }) => (
+  <div style={{ padding: "40px", textAlign: "center", color: "#666" }}>
+    <h2>{title}</h2>
+    <p>This form/page is under development.</p>
+  </div>
+);
+
 function AppRoutes() {
   return (
     <>
-      {/* Ensures window scrolls to top whenever route changes */}
       <ScrollToTop />
-
       <Routes>
         <Route path="/" element={<DashboardLayout />}>
           {/* Home */}
           <Route path="reset-password" element={<ResetPasswordModal />} />
           <Route index element={<HomePage />} />
           <Route path="/myorders" element={<MyOrdersPage />} />
-          {/* ============================================================
-                💳 PAYMENT FLOW (UPDATED)
-            ============================================================ */}
-          {/* Step 1: Product Details & Coupon */}
+
+          {/* Payment */}
           <Route path="/buy-now/:buyNowId" element={<PaymentPage />} />
-          {/* Step 2: Billing Address & Contact Info */}
           <Route
             path="/payment-address/:buyNowId"
             element={<PaymentAddressPage />}
           />
-          {/* Step 3: Payment Method Selection (UPI/Card/NetBanking) */}
           <Route
             path="/payment-method/:buyNowId"
             element={<PaymentMethodPage />}
           />
-          {/* Step 4: Payment Success Page */}
           <Route
             path="/payment-success/:buyNowId"
             element={<PaymentSuccessPage />}
           />
           <Route path="/invoice/:buyNowId" element={<InvoicePage />} />
-          {/* User Profile Routes */}
+
+          {/* User Profile */}
           <Route path="/mycourses" element={<MyCoursesPage />} />
           <Route path="/coursesdatapage" element={<CoursesDataPage />} />
           <Route path="/mytestseries" element={<MyTestSeries />} />
-          <Route path="/myebooks" element={<MyEbooksPage />} />{" "}
-          {/* 🎯 NEW EBOOKS PAGE */}
-          {/* ============================================================
-                📚 ONLINE COURSES
-            ============================================================ */}
+          <Route path="/myebooks" element={<MyEbooksPage />} />
+
+          {/* Online Courses */}
           <Route path="online-courses" element={<OnlineCoursesPage />} />
           <Route path="online-courses/all" element={<OnlineCoursesAllPage />} />
           <Route
@@ -153,9 +156,8 @@ function AppRoutes() {
             path="online-courses/:category/:subcategory/:courseId/video/:videoId"
             element={<CourseVideoPlayerPage />}
           />
-          {/* ============================================================
-                📺 LIVE CLASSES
-            ============================================================ */}
+
+          {/* Live Classes */}
           <Route path="/liveclasses" element={<LiveClasses />} />
           <Route path="liveclasses/all" element={<AllLiveClassesPage />} />
           <Route
@@ -166,9 +168,8 @@ function AppRoutes() {
             path="/liveclasses/:category/:subcategory"
             element={<SubcategoryClassesPage />}
           />
-          {/* ============================================================
-              📰 CURRENT AFFAIRS
-          ============================================================ */}
+
+          {/* Current Affairs */}
           <Route path="currentaffairs" element={<CurrentAffairsPage />} />
           <Route
             path="currentaffairs/:category"
@@ -182,9 +183,8 @@ function AppRoutes() {
             path="currentaffairs/:category/:subId/:articleId"
             element={<CurrentAffairsArticlePage />}
           />
-          {/* ============================================================
-              📝 DAILY QUIZZES
-          ============================================================ */}
+
+          {/* Daily Quizzes */}
           <Route path="dailyquizzes" element={<DailyQuizzesPage />} />
           <Route
             path="dailyquizzes/:category"
@@ -210,23 +210,20 @@ function AppRoutes() {
             path="dailyquizzes/:category/:subcategory/:quizId/review"
             element={<QuizCorrectAnswersPage />}
           />
-          {/* ============================================================
-              📚 E-BOOKS (Updated to include optional tab parameter)
-          ============================================================ */}
+
+          {/* E-books */}
           <Route path="ebooks" element={<EbooksPage />} />
           <Route path="ebooks/:category" element={<EbooksSubcategories />} />
           <Route
             path="ebooks/:category/:subcategory"
             element={<PublicationsPage />}
           />
-          {/* 🎯 UPDATED ROUTE: Includes optional tab for detail page */}
           <Route
             path="ebooks/:category/:subcategory/:id/:tab?"
             element={<BookDetailPage />}
           />
-          {/* ============================================================
-              📄 PREVIOUS PAPERS
-          ============================================================ */}
+
+          {/* Previous Papers */}
           <Route path="previous-papers" element={<PreviousQuestionPapers />} />
           <Route
             path="previous-papers/:category"
@@ -240,9 +237,8 @@ function AppRoutes() {
             path="previous-papers/:category/:subcategory/:paperId"
             element={<PaperDetail />}
           />
-          {/* ============================================================
-                🏆 TEST SERIES
-            ============================================================ */}
+
+          {/* Test Series */}
           <Route path="test-series" element={<TestSeriesPage />} />
           <Route
             path="test-series/:category"
@@ -264,11 +260,74 @@ function AppRoutes() {
             path="test-series/:category/:seriesId/result/:testId"
             element={<TestResultPage />}
           />
-          {/* ============================================================
-              🧭 ABOUT & CONTACT
-          ============================================================ */}
+
+          {/* About & Contact */}
           <Route path="aboutus" element={<AboutUsPage />} />
           <Route path="contactus" element={<ContactUs />} />
+
+          {/* --- ADMIN PANEL ROUTES --- */}
+          <Route path="/admin/content" element={<AdminMainPage />}>
+            {/* ADD ROUTES */}
+            <Route index element={<AdminOnlineCoursesPage />} />
+            <Route
+              path="add/online-course"
+              element={<AdminOnlineCoursesPage />}
+            />
+            <Route
+              path="add/test-series"
+              element={<PlaceholderPage title="Add Test Series" />}
+            />
+            <Route
+              path="add/daily-quiz"
+              element={<PlaceholderPage title="Add Daily Quiz" />}
+            />
+            <Route
+              path="add/current-affairs"
+              element={<PlaceholderPage title="Add Current Affairs" />}
+            />
+            <Route
+              path="add/publication"
+              element={<PlaceholderPage title="Add Publication" />}
+            />
+            <Route
+              path="add/previous-paper"
+              element={<PlaceholderPage title="Add Previous Paper" />}
+            />
+
+            {/* UPDATE ROUTES */}
+            <Route
+              path="update/online-courses"
+              element={<PlaceholderPage title="Update Online Courses" />}
+            />
+            <Route
+              path="update/test-series"
+              element={<PlaceholderPage title="Update Test Series" />}
+            />
+            <Route
+              path="update/daily-quizzes"
+              element={<PlaceholderPage title="Update Daily Quizzes" />}
+            />
+            <Route
+              path="update/current-affairs"
+              element={<PlaceholderPage title="Update Current Affairs" />}
+            />
+            <Route
+              path="update/publications"
+              element={<PlaceholderPage title="Update Publications" />}
+            />
+            <Route
+              path="update/previous-papers"
+              element={<PlaceholderPage title="Update Previous Papers" />}
+            />
+            <Route
+              path="update/live-classes"
+              element={<PlaceholderPage title="Update Live Classes" />}
+            />
+            <Route
+              path="update/banners"
+              element={<PlaceholderPage title="Update Banners" />}
+            />
+          </Route>
         </Route>
 
         {/* Fallback */}
