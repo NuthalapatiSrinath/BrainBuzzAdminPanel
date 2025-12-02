@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import FilterPills from "../../../components/FilterPills/FilterPills";
-import AdminPanelDropdown from "../../../components/AdminPanelDropdown/AdminPanelDropdown";
-import AdminDateDropdown from "../../../components/AdminDateDropdown/AdminDateDropdown";
+import AdminPanelDropdown from "../../../components/AdminComponents/AdminPanelDropdown/AdminPanelDropdown";
+import AdminDateDropdown from "../../../components/AdminComponents/AdminDateDropdown/AdminDateDropdown";
 import styles from "./AdminMainPage.module.css";
 
 export default function AdminMainPage() {
