@@ -1,312 +1,108 @@
 .dropdownContainer {
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
   width: 100%;
+  position: relative;
   font-family: "Poppins", sans-serif;
-  box-sizing: border-box;
 }
 
 .label {
-  display: block;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   color: #333;
-  margin-bottom: 8px;
 }
 
-/* --- Trigger Button Styling --- */
 .trigger {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  width: 100%;
-  padding: 0 16px;
-  border-radius: 8px; /* Slightly more rounded */
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s ease;
-  min-height: 48px; /* Taller, matching the images */
   user-select: none;
-  font-size: 15px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+/* Primary Variant (Standard White) */
+.trigger.primary {
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  color: #333;
+}
+.trigger.primary:hover {
+  border-color: #b0b0b0;
+}
+
+/* Rich Variant (Blue Background Style) */
+.trigger.rich {
+  background-color: #eff6ff; /* Light Blue Background */
+  border: 1px solid #dbeafe; /* Soft Blue Border */
+  color: #1e3a8a; /* Dark Blue Text */
+}
+.trigger.rich:hover {
+  background-color: #ebf5ff;
+  border-color: #93c5fd;
+}
+.trigger.rich .icon {
+  color: #3b82f6; /* Blue Icon */
 }
 
 .text {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  flex: 1;
+  font-size: 15px;
   font-weight: 500;
 }
 
 .placeholderText {
-  font-weight: 400;
-  color: #9ca3af; /* Grey-400 */
+  color: #888;
+}
+.trigger.rich .placeholderText {
+  color: #60a5fa; /* Lighter blue for placeholder */
 }
 
 .icon {
-  font-size: 12px;
-  margin-left: 12px;
-  transition: transform 0.3s ease;
+  font-size: 14px;
+  color: #666;
+  transition: transform 0.2s ease;
 }
 
 .rotate {
   transform: rotate(180deg);
 }
 
-/* --- VARIANTS --- */
-
-/* Primary Variant (matches image_4ab6d9.png - "Add Content")
-   - Light blue background
-   - Blue border
-   - Blue text & icon
-*/
-.primary {
-  background-color: #f0f7ff; /* Light blue fill */
-  border: 1px solid var(--Primary_Color, #0d6efd); /* Blue border */
-  color: var(--Primary_Color, #0d6efd);
-}
-
-.primary .text {
-  color: var(--Primary_Color, #0d6efd);
-}
-
-.primary .icon {
-  color: var(--Primary_Color, #0d6efd);
-}
-
-.primary:hover {
-  background-color: #e6f2ff;
-}
-
-/* Secondary Variant (matches image_4ab97c.png - "Select Content Type")
-   - White background
-   - Light grey border
-   - Dark grey text
-*/
-.secondary {
-  background-color: #ffffff;
-  border: 1px solid #e5e7eb; /* Light grey border */
-  color: #374151; /* Dark grey text */
-}
-
-.secondary .text {
-  color: #374151;
-}
-
-.secondary .icon {
-  color: #6b7280; /* Grey icon */
-}
-
-.secondary:hover {
-  border-color: #d1d5db;
-  background-color: #f9fafb;
-}
-
-.secondary.open {
-  border-color: var(--Primary_Color, #0d6efd);
-  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1);
-}
-
-/* --- MENU LIST --- */
+/* Menu Styles */
 .menu {
   position: absolute;
-  top: calc(100% + 6px);
+  top: 100%;
   left: 0;
   width: 100%;
-  background: #fff;
-  border: 1px solid #f3f4f6;
+  margin-top: 6px;
+  background-color: white;
+  border: 1px solid #eee;
   border-radius: 8px;
-  padding: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 6px 0;
   list-style: none;
   z-index: 100;
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1),
-    0 8px 10px -6px rgba(0, 0, 0, 0.01);
-  max-height: 280px;
+  max-height: 250px;
   overflow-y: auto;
-  opacity: 0;
-  animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .menuItem {
-  padding: 10px 12px;
+  padding: 10px 16px;
   font-size: 14px;
-  color: #4b5563;
+  color: #333;
   cursor: pointer;
-  border-radius: 6px;
-  margin-bottom: 2px;
-  transition: background-color 0.15s;
-}
-
-.menuItem:last-child {
-  margin-bottom: 0;
+  transition: background-color 0.1s;
 }
 
 .menuItem:hover {
-  background-color: #f3f4f6;
-  color: #111;
+  background-color: #f7f9fc;
+  color: #007bff;
 }
 
-.selected {
+.menuItem.selected {
   background-color: #eff6ff;
-  color: var(--Primary_Color, #0d6efd);
-  font-weight: 500;
-}
-
-/* Scrollbar styling for the menu */
-.menu::-webkit-scrollbar {
-  width: 6px;
-}
-.menu::-webkit-scrollbar-track {
-  background: transparent;
-}
-.menu::-webkit-scrollbar-thumb {
-  background-color: #e5e7eb;
-  border-radius: 20px;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-/* ... existing styles ... */
-
-.dropdownContainer {
-  position: relative;
-  width: 100%;
-  font-family: "Poppins", sans-serif;
-  box-sizing: border-box;
-}
-
-.label {
-  display: block;
-  font-size: 14px;
-  font-weight: 500;
-  color: #333;
-  margin-bottom: 8px;
-}
-
-/* --- Trigger Button Styling --- */
-.trigger {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  padding: 0 16px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  min-height: 48px;
-  user-select: none;
-  font-size: 15px;
-  /* Default shadow for standard inputs */
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
-}
-
-/* ... existing .text, .placeholderText, .icon, .rotate ... */
-
-/* --- VARIANTS --- */
-
-/* Primary & Secondary (Keep existing) */
-.primary {
-  background-color: #f0f7ff;
-  border: 1px solid var(--Primary_Color, #0d6efd);
-  color: var(--Primary_Color, #0d6efd);
-}
-.primary .text,
-.primary .icon {
-  color: var(--Primary_Color, #0d6efd);
-}
-.primary:hover {
-  background-color: #e6f2ff;
-}
-
-.secondary {
-  background-color: #ffffff;
-  border: 1px solid #e5e7eb;
-  color: #374151;
-}
-.secondary .text {
-  color: #374151;
-}
-.secondary .icon {
-  color: #6b7280;
-}
-.secondary:hover {
-  border-color: #d1d5db;
-  background-color: #f9fafb;
-}
-.secondary.open {
-  border-color: var(--Primary_Color, #0d6efd);
-  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1);
-}
-
-/* --- NEW: Rich UI Variant (image_4aaef6.png) ---
-   - No border
-   - Transparent or very light background
-   - Colored text (e.g., orange/gold for "Add Content")
-   - Colored icon
-*/
-.rich {
-  background-color: transparent;
-  border: none; /* No border */
-  box-shadow: none; /* No shadow */
-  padding: 0; /* Minimal padding */
-  min-height: auto; /* Auto height */
-  justify-content: flex-start; /* Align left */
-  gap: 10px;
-}
-
-/* Text style for Rich variant (e.g., Orange/Gold like the image) */
-.rich .text {
-  flex: 0 0 auto; /* Don't stretch */
-  color: #d97706; /* Amber-600 (Adjust to match your image exact color) */
+  color: #007bff;
   font-weight: 600;
-  font-size: 16px;
 }
-
-/* Icon style for Rich variant */
-.rich .icon {
-  color: #d97706; /* Amber-600 */
-  font-size: 14px;
-  margin-left: 8px;
-  background-color: #fffbeb; /* Amber-50 background for icon circle if needed */
-  border-radius: 50%;
-  padding: 4px; /* If you want a circle around the chevron */
-  width: 24px;
-  height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Hover state */
-.rich:hover .text {
-  color: #b45309; /* Darker amber */
-}
-
-/* --- MENU LIST (Same as before) --- */
-.menu {
-  position: absolute;
-  top: calc(100% + 6px);
-  left: 0;
-  min-width: 220px; /* Ensure menu has width even if trigger is small */
-  background: #fff;
-  border: 1px solid #f3f4f6;
-  border-radius: 8px;
-  padding: 6px;
-  list-style: none;
-  z-index: 100;
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1),
-    0 8px 10px -6px rgba(0, 0, 0, 0.01);
-  max-height: 280px;
-  overflow-y: auto;
-  opacity: 0;
-  animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-/* ... existing .menuItem, .selected, scrollbar, keyframes ... */

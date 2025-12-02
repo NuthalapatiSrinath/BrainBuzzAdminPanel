@@ -34,7 +34,8 @@ export default function AdminMainPage() {
 
   // --- State ---
   const [activeTabLabel, setActiveTabLabel] = useState("Add Content");
-  const [selectedDate] = useState("25 Sep 2025");
+  // Initialize with YYYY-MM-DD format for the input[type="date"] to work correctly
+  const [selectedDate, setSelectedDate] = useState("2025-09-25");
   const [selectedContent, setSelectedContent] = useState(contentOptions[0]);
 
   // --- Handlers ---
@@ -98,6 +99,7 @@ export default function AdminMainPage() {
             <div className={styles.leftAction}>
               <div style={{ minWidth: "220px" }}>
                 <AdminPanelDropdown
+                  label="Select Content Category"
                   options={contentOptions}
                   selectedOption={selectedContent}
                   onSelect={handleContentSelect}
@@ -111,8 +113,10 @@ export default function AdminMainPage() {
             <div className={styles.rightAction}>
               <div style={{ minWidth: "180px" }}>
                 <AdminDateDropdown
-                  date={selectedDate}
-                  variant="rich" // Rich UI style
+                  label="Select Date"
+                  value={selectedDate}
+                  onChange={setSelectedDate}
+                  variant="rich"
                 />
               </div>
             </div>

@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import styles from "./AdminPanelDropdown.module.css";
-import { FaChevronDown } from "react-icons/fa";
+import { ChevronDown } from "lucide-react";
 
 const AdminPanelDropdown = ({
   label, // Optional label above the dropdown
@@ -9,7 +9,7 @@ const AdminPanelDropdown = ({
   selectedOption,
   onSelect,
   placeholder = "Select...",
-  variant = "primary", // 'primary' or 'secondary'
+  variant = "primary", // 'primary' or 'rich'
   className = "",
 }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -57,7 +57,8 @@ const AdminPanelDropdown = ({
         >
           {displayText}
         </span>
-        <FaChevronDown
+        <ChevronDown
+          size={18}
           className={`${styles.icon} ${isOpen ? styles.rotate : ""}`}
         />
       </div>
@@ -89,7 +90,7 @@ AdminPanelDropdown.propTypes = {
   selectedOption: PropTypes.object,
   onSelect: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
-  variant: PropTypes.oneOf(["primary", "secondary"]),
+  variant: PropTypes.oneOf(["primary", "rich"]),
   className: PropTypes.string,
 };
 

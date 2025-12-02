@@ -1,67 +1,89 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import PropTypes from "prop-types";
+import { Calendar } from "lucide-react";
 import styles from "./AdminDateDropdown.module.css";
-import { FaCalendarAlt, FaChevronDown } from "react-icons/fa";
 
-export default function AdminDateDropdown({
-  date,
+const AdminDateDropdown = ({
+  label,
+  value,
   onChange,
-  variant = "primary", // 'primary' (bordered) or 'rich' (borderless colored)
-}) {
-  const [isOpen, setIsOpen] = useState(false);
-  const ref = useRef(null);
+  variant = "primary", // 'primary' or 'rich' to match other dropdowns
+  className = "",
+}) => {
+  const dateInputRef = useRef(null);
 
-  const toggle = () => setIsOpen(!isOpen);
+  // Get today's date in YYYY-MM-DD format for the 'min' attribute
+  const today = new Date().toISOString().split("T")[0];
 
-  // Close on click outside
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (ref.current && !ref.current.contains(event.target)) {
-        setIsOpen(false);
+  // Handler for date change
+  const handleDateChange = (e) => {
+    if (onChange) {
+      onChange(e.target.value);
+    }
+  };
+
+  // Format the display date (e.g., "2025-09-25" -> "25 Sep 2025")
+  const formatDateDisplay = (dateString) => {
+    if (!dateString) return "Select Date";
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) return "Invalid Date";
+
+    return new Intl.DateTimeFormat("en-GB", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    }).format(date);
+  };
+
+  // Trigger focus on the hidden input when the container is clicked
+  const handleContainerClick = () => {
+    if (dateInputRef.current) {
+      if (dateInputRef.current.showPicker) {
+        dateInputRef.current.showPicker();
+      } else {
+        dateInputRef.current.focus();
       }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+    }
+  };
 
   return (
-    <div className={styles.container} ref={ref}>
-      <button
-        className={`${styles.trigger} ${styles[variant]}`}
-        onClick={toggle}
-      >
-        <div className={styles.left}>
-          {/* Icon Box */}
-          <span className={styles.iconWrap}>
-            <FaCalendarAlt />
-          </span>
-          <span className={styles.dateText}>{date}</span>
-        </div>
-        <FaChevronDown
-          className={`${styles.chev} ${isOpen ? styles.rotate : ""}`}
-        />
-      </button>
+    <div className={`${styles.container} ${className}`}>
+      {label && <label className={styles.label}>{label}</label>}
 
-      {isOpen && (
-        <ul className={styles.menu}>
-          {/* In a real app, you'd render a calendar component here */}
-          <li className={styles.item} onClick={() => setIsOpen(false)}>
-            Today
-          </li>
-          <li className={styles.item} onClick={() => setIsOpen(false)}>
-            Yesterday
-          </li>
-          <li className={styles.item} onClick={() => setIsOpen(false)}>
-            Pick Date...
-          </li>
-        </ul>
-      )}
+      <div
+        className={`${styles.wrapper} ${styles[variant]}`}
+        onClick={handleContainerClick}
+      >
+        {/* The visual part that looks like a dropdown */}
+        <div className={styles.displayArea}>
+          <span
+            className={`${styles.dateText} ${!value ? styles.placeholder : ""}`}
+          >
+            {formatDateDisplay(value)}
+          </span>
+          <Calendar className={styles.icon} size={18} />
+        </div>
+
+        {/* The hidden native input that triggers the calendar */}
+        <input
+          ref={dateInputRef}
+          type="date"
+          min={today} // Restricts to future dates
+          value={value || ""}
+          onChange={handleDateChange}
+          className={styles.hiddenInput}
+        />
+      </div>
     </div>
   );
-}
+};
 
 AdminDateDropdown.propTypes = {
-  date: PropTypes.string.isRequired,
+  label: PropTypes.string,
+  value: PropTypes.string, // Expects YYYY-MM-DD
   onChange: PropTypes.func,
   variant: PropTypes.oneOf(["primary", "rich"]),
+  className: PropTypes.string,
 };
+
+export default AdminDateDropdown;
