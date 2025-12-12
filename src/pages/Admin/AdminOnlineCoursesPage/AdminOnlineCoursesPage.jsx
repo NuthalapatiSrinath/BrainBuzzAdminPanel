@@ -1,22 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import CategoryColumn from "../../../components/AdminComponents/CategoryColumn/CategoryColumn";
-import styles from "./AdminOnlineCoursesPage.module.css";
-import { AiOutlinePlus } from "react-icons/ai";
+import { AiOutlinePlus, AiOutlineArrowLeft } from "react-icons/ai";
 
-/**
- * AdminOnlineCoursesPage
- * Accepts optional `categories` prop (array). Uses demo data if not provided.
- */
+// Components
+import CategoryColumn from "../../../components/AdminComponents/CategoryColumn/CategoryColumn";
+// Ensure you have created the AdminEditor folder and file as per previous step
+import AdminEditor from "../../../components/AdminComponents/AdminEditor/AdminEditor";
+import styles from "./AdminOnlineCoursesPage.module.css";
+
 const AdminOnlineCoursesPage = ({ categories }) => {
   const dispatch = useDispatch();
 
+  // --- View State Management ---
+  // 'list' = show columns, 'add' = show blank editor, 'edit' = show filled editor
+  const [viewMode, setViewMode] = useState("list");
+  const [editingData, setEditingData] = useState(null);
+
+  // --- Demo Data (Preserving your original structure) ---
   const demoCategories = [
     {
       id: "cat-left",
       name: "",
       subcategories: [],
-      special: "leftOnly", // this mimics the far-left empty column with only Add Sub Category link
+      special: "leftOnly", // Keeps the "Add Sub Category" link column
     },
     {
       id: "cat-upsc",
@@ -54,8 +60,6 @@ const AdminOnlineCoursesPage = ({ categories }) => {
       subcategories: [
         { id: "pol-1", name: "AP SI" },
         { id: "pol-2", name: "AP Constable" },
-        { id: "pol-3", name: "TS SI" },
-        { id: "pol-4", name: "TS Constable" },
       ],
     },
     {
@@ -73,6 +77,74 @@ const AdminOnlineCoursesPage = ({ categories }) => {
       ? categories
       : demoCategories;
 
+  // --- Handlers ---
+
+  const handleAddNew = () => {
+    setEditingData(null); // Clear data for new entry
+    setViewMode("add");
+  };
+
+  const handleEditItem = (item) => {
+    // Map your existing item data to the AdminEditor fields
+    // This example assumes 'item' has a name property
+    setEditingData({
+      ...item,
+      title: item.name,
+      // You can pre-fill other fields here if your data has them:
+      // price: item.price,
+      // discount: item.discount,
+    });
+    setViewMode("edit");
+  };
+
+  const handleBackToList = () => {
+    setViewMode("list");
+    setEditingData(null);
+  };
+
+  const handleSaveContent = (data) => {
+    console.log("Saving Content:", data);
+    // TODO: Dispatch your Redux action here (e.g., CREATE_COURSE or UPDATE_COURSE)
+    handleBackToList();
+  };
+
+  // --- RENDER ---
+
+  // 1. Editor View (Used for both Add and Edit)
+  if (viewMode === "add" || viewMode === "edit") {
+    return (
+      <div className={styles.pageWrap}>
+        {/* Back Button */}
+        <button
+          onClick={handleBackToList}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "0.5rem",
+            marginBottom: "1rem",
+            border: "none",
+            background: "none",
+            cursor: "pointer",
+            color: "#6b7280",
+            fontSize: "1rem",
+            fontWeight: "500",
+          }}
+        >
+          <AiOutlineArrowLeft /> Back to Categories
+        </button>
+
+        {/* The Enriched Admin Editor */}
+        <AdminEditor
+          title={viewMode === "add" ? "Add New Course" : "Edit Course Details"}
+          initialData={editingData}
+          onSave={handleSaveContent}
+          onCancel={handleBackToList}
+        />
+      </div>
+    );
+  }
+
+  // 2. List View (Default Category Columns)
   return (
     <div className={styles.pageWrap}>
       <div className={styles.box}>
@@ -94,11 +166,15 @@ const AdminOnlineCoursesPage = ({ categories }) => {
               ) : (
                 <CategoryColumn
                   category={cat}
+                  // Clicking the item name opens the modal as before
                   onOpen={(it) => dispatch({ type: "OPEN_MODAL", payload: it })}
+                  // Plus button adds sub category
                   onAddSub={(c) =>
                     dispatch({ type: "SHOW_ADD_SUB", payload: c })
                   }
-                  onEdit={(it) => dispatch({ type: "EDIT_ITEM", payload: it })}
+                  // EDIT BUTTON: Now opens the new AdminEditor
+                  onEdit={(it) => handleEditItem(it)}
+                  // DELETE BUTTON: Keep existing delete logic
                   onDelete={(it) =>
                     dispatch({ type: "DELETE_ITEM", payload: it })
                   }
@@ -108,13 +184,11 @@ const AdminOnlineCoursesPage = ({ categories }) => {
           ))}
         </div>
 
+        {/* Footer Row to Add New Top-Level Category or Course */}
         <div className={styles.footerRow}>
-          <button
-            className={styles.addCategoryBtn}
-            onClick={() => dispatch({ type: "ADD_CATEGORY" })}
-          >
+          <button className={styles.addCategoryBtn} onClick={handleAddNew}>
             <AiOutlinePlus className={styles.plusIcon} />
-            Add Category
+            Add New Course / Category
           </button>
         </div>
       </div>
